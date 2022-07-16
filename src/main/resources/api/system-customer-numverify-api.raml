@@ -1,0 +1,30 @@
+#%RAML 1.0
+title: customer  phone number verify API
+
+uses:
+  myLib: library.raml
+
+/validatePhoneNumber:
+  displayName: validate CustomerPhone Number
+  description: Customer Phone Number
+  get:
+    displayName: Get verified customer phone number 
+    description: Return validated data if a customer from phone number is verified 
+    queryParameters:
+      phoneNumber:
+        displayName: Phone 
+        description: Customer phone used verify membership 
+        type: string
+        pattern: "[0-9|-]+"
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: myLib.dataType
+            example: !include example.raml
+    is:
+      - myLib.errorRes
+      - myLib.mySec
+
+              

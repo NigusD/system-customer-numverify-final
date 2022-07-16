@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+	<sub-flow name="implementationSub_Flow" doc:id="b9303fb3-c71d-4dd7-bdfd-cda3bbf8f745" >
+		<logger level="INFO" doc:name="Flow Start" doc:id="0f50a59c-7a19-418f-877b-84c793597b0d" />
+		<validation:matches-regex doc:name="Matches regex" doc:id="261c1274-88b9-427b-860a-fc0592d7bdd5" value="#[attributes.queryParams.phoneNumber]" regex="^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/>
+		<http:request method="GET" doc:name="Request" doc:id="250a288e-3be6-492a-b66f-671ae358b68c" config-ref="HTTP_Request_configuration" path="/validate">
+			<http:query-params ><![CDATA[#[{
+  "number": attributes.queryParams.phoneNumber,
+  "access_key": Mule::p('secure::api.access_key')
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Flow Completed" doc:id="50393655-e3c2-4e66-8046-434bc044ec47" />
+	</sub-flow>
+</mule>

@@ -1,0 +1,26 @@
+%dw 2.0
+
+type auto_ebe0107f_9c14_422c_a12c_33de24fb9c6b_Input_Attributes = {|
+  clientCertificate?: {|
+    publicKey?: {|  |}, 
+    "type"?: String, 
+    encoded?: Binary
+  |}, 
+  headers: {|
+    ClientID: String, 
+    ClientSecret: String
+  |}, 
+  listenerPath: String, 
+  method: String, 
+  queryParams: {| phoneNumber: String |}, 
+  queryString: String, 
+  relativePath: String, 
+  remoteAddress: String, 
+  requestPath: String, 
+  requestUri: String, 
+  scheme: String, 
+  uriParams: {|  |}, 
+  version: String, 
+  localAddress: String
+|}
+
